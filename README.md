@@ -1,6 +1,7 @@
 # Título del Proyecto
 
-_Describir lo que es el proyecto_
+MOCKUPS https://www.figma.com/file/oKCW5cWs3x7lC8ETkoImc3/Calidad-de-software
+
 
 ## Comenzando 🚀
 
