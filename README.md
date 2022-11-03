@@ -8,16 +8,27 @@ _Gracias a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
 
 ## OJOO INSTALACIONES DE NODE
 npm run start
+
 npm install engine
+
 npm install nodemon
+
 npm install body-parser
+
 npm install express-handlebars
+
 npm install boostrap@latest
+
 npm install cors
+
 npm install
+
 npm install pg
+
 npm install dotenv
+
 npm install express
+
 npm init
 ## Del último comando hacia arriba.(es decir el primero es npm init)
 
