@@ -1,0 +1,154 @@
+<html lang="es">
+
+  <head>
+    <title>JesusChat</title>
+    
+    <!-- <link rel="stylesheet" href="/estilos/body.css" />-->
+
+    <script type="text/javascript">
+
+
+          let maxPermitted = 300;
+            // La varible de control
+          let validArea = false;
+            
+          let area = document.querySelector('#area');
+          let submit = document.querySelector('#sbmit');
+          let error = document.querySelector('#area-error');
+          let namea = document.querySelector('#remit');          
+
+          window.onload= function(){
+            
+            maxPermitted = 300;
+            // La varible de control
+            validArea = false;
+              
+            area = document.querySelector('#area');
+            submit = document.querySelector('#sbmit');
+            error = document.querySelector('#area-error');
+            namea = document.querySelector('#remit');
+
+          }
+      
+          var coment=[
+              {"nombre": "Jesus","body":"this is a coment"}
+            ];
+
+          function openForm() {
+              document.getElementById("myForm").style.display = "block";
+            }
+          function closeForm() {
+              document.getElementById("myForm").style.display = "none";
+          }
+
+          
+            
+          function verifica(){
+
+            const {value}= namea;
+            console.log(area.value);
+            console.log(value);
+            validArea=true;
+
+            if(validArea==false || value.length==0 || document.querySelector('#area').value.length==0){
+                alert("Verifica los Campos \n incompletos o fuera de rango");
+            }
+            else{
+                 alert("Ok Enviado");
+                 var addObj={
+                    "nombre": document.querySelector('#remit').value,//val()
+                    "body":  document.querySelector('#area').value
+                  };
+                  console.log(addObj);
+                  coment.push(addObj);
+                  console.log(coment.length);
+                  render(addObj);
+              }
+            }
+            
+            try{
+              area.addEventListener("input", () => {
+                  const { value } = area;
+                  
+                  value.length >= maxPermitted
+                      ? handleInvalid()
+                      : handleValid();
+              });
+            }catch(err){}
+            
+            
+          //////////////////////////////////CHAT
+
+
+            function render(data){
+              var html = "<div class='comentBox'></div><div class='rightPanel'><span>@"+data.nombre+"---->"+data.body+"</span></div></div>"
+              document.getElementById("container").innerHTML+= html;
+            }
+
+
+            document.addEventListener("DOMContentLoaded", function() {
+                for(var i=0; i<coment.length;i++){
+                  console.log(coment.length);
+                  try{
+                      render(coment[i]);  
+                  }catch(err){}
+                }
+            });
+
+
+
+
+
+    </script>
+
+
+
+
+  </head>
+
+
+  <div id="cambio" style="height: 910px;">
+   <div id="seccionChat">
+
+    <h2>Kripto Chat</h2>
+        <div>
+            <p>Historial Cliente:</p> 
+            <div id="container">
+         
+
+            </div>
+        </div>
+
+
+    <main style="margin-bottom: 1%;">
+      <button class="open-button" onclick="openForm()">Chat</button>
+
+      <div class="chat-popup" id="myForm">
+      <div action="#" class="form-container">
+          <h1>Chat</h1>
+
+          <button id="sbmit" type="submit" class="btn" onclick="verifica()">Enviar</button>
+          <button type="button" class="btn cancel" onclick="closeForm()">Cerrar</button>
+
+          <label id="nombre" for="msg"><b>Remitente</b></label>
+          <input placeholder="Nombre.." type="text" id="remit" name="remitente" required>
+          <br>
+          <label for="msg"><b>Mensaje</b></label>
+          <div class="error" id="area-error">Characters overflow</div>
+          <textarea id="area" placeholder="Mensaje.." name="msg" required></textarea>
+
+      </div>
+      </div>
+        
+        
+          
+    </main>
+
+    
+
+  </div>
+
+   </div>
+
+<!--<script src="/javascript/code.js"></script>-->
+ 
