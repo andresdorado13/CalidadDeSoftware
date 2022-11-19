@@ -67,6 +67,7 @@ const crearUsuario = (request, response) => {
 }
 
 const iniciarSesion = (request, response) => {
+  console.log("entro")
   //const email = request.body.data.nombre
   //const password = request.body.data.edad
   pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {

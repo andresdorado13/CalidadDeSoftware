@@ -11,8 +11,13 @@ function chat(req, res){
     res.render('../views/layouts/chat.hbs');
 }
 
+function registro(req, res){
+    res.render('../views/layouts/registro.hbs');
+}
+
 module.exports = {
     home: home,
     datos: datos,
-    chat: chat
+    chat: chat,
+    registro:registro
 }
