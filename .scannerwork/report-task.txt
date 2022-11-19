@@ -1,0 +1,6 @@
+projectKey=proyectoCovenant
+serverUrl=http://localhost:9000
+serverVersion=7.9.6.41879
+dashboardUrl=http://localhost:9000/dashboard?id=proyectoCovenant
+ceTaskId=AYRpi0KkcXwq0K9ko12I
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AYRpi0KkcXwq0K9ko12I
