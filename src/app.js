@@ -34,17 +34,9 @@ const pool = new Pool({
     }
   })
 
-/*
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'Octubre',
-  password: '123456',
-  port: 5432,  
-})*/
 
 const getUsuario = (request, response) => {
-  pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+  pool.query('SELECT * FROM usuario ORDER BY id ASC', (error, results) => {
     if (error) {
       throw error
     }
@@ -58,6 +50,7 @@ const crearUsuario = (request, response) => {
   const edad = request.body.data.edad
   const tipo = request.body.data.tipo
     
+  //CAMBIARLO PARA LA TABLA usuario
   pool.query('insert into usuarios (nombre,edad,tipo) values ($1, $2, $3)', [nombre,edad,tipo], (error, results) => {
     if (error) {
       throw error
@@ -67,25 +60,21 @@ const crearUsuario = (request, response) => {
 }
 
 const iniciarSesion = (request, response) => {
-  console.log("entro")
-  //const email = request.body.data.nombre
-  //const password = request.body.data.edad
-  pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+  const email = request.body.data.email
+  const password = request.body.data.password
+      
+  pool.query('SELECT correo, contraseña FROM usuario where correo = $1 and contraseña = $2', [email, password], (error, results) => {
     if (error) {
-      throw error
+      throw error//error
     }
-
-    console.log(results.rowCount)
-    //for(var i=0, i<results.rowCount )
-    results.rows.length
-    console.log("lOGEADO")
-    response.status(200)
-    response.render('datos')
-    //response.status(200).json(results.rows)
+    if(results.rowCount==1){
+      //response.render('datos')
+      //response.status(200).json(results.rows)//login exitoso
+      response.render('home');
+    }else{
+      response.status(200).json(results.rows)//campos incorrectos
+    }
   })
-
-
-
 }
 
 const path = require('path')
