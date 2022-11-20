@@ -33,7 +33,7 @@ const pool = new Pool({
       rejectUnauthorized:false
     }
   })
-
+//////////////////////////////////////////////////////////////////////////////////////
 
 const getUsuario = (request, response) => {
   pool.query('SELECT * FROM usuario ORDER BY id ASC', (error, results) => {
@@ -43,7 +43,8 @@ const getUsuario = (request, response) => {
     response.status(200).json(results.rows)
   })
 }
-
+//////////////////////////////////////////////////////////////////////////////////////
+/**REGISTRO */
 const crearUsuario = (request, response) => {
   //const { nombre,edad,tipo } = request.body
   const nombre = request.body.data.nombre
@@ -58,7 +59,7 @@ const crearUsuario = (request, response) => {
     response.status(201).json({ UsuarioAgregado: 'Ok' })
   })
 }
-
+//////////////////////////////////////////////////////////////////////////////////
 const iniciarSesion = (request, response) => {
   const email = request.body.data.email
   const password = request.body.data.password
@@ -91,7 +92,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/usuarios', getUsuario)
-app.post('/usuarios', crearUsuario)
+app.post('/registro', crearUsuario)
 app.post('/login', iniciarSesion)
 
 
