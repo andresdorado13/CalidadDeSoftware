@@ -46,13 +46,11 @@ const getUsuario = (request, response) => {
 //////////////////////////////////////////////////////////////////////////////////////
 /**REGISTRO */
 const crearUsuario = (request, response) => {
-  //const { nombre,edad,tipo } = request.body
-  const nombre = request.body.data.nombre
-  const edad = request.body.data.edad
-  const tipo = request.body.data.tipo
-    
+  const { nombre,cedula,correo,contra,dpto,sector } = request.body
+  console.log(request.body)
+  const rol=1  
   //CAMBIARLO PARA LA TABLA usuario
-  pool.query('insert into usuarios (nombre,edad,tipo) values ($1, $2, $3)', [nombre,edad,tipo], (error, results) => {
+  pool.query('insert into usuario (nombre,cedula,correo,contraseña,tiposectorid,tiporolid,tipodepartamentoid) values ($1, $2, $3, $4, $5, $6, $7)', [nombre,cedula,correo,contra,sector,rol,dpto], (error, results) => {
     if (error) {
       throw error
     }
