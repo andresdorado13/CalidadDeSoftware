@@ -17,6 +17,16 @@ app.set('view engine', 'hbs');
 let cors = require("cors");
 app.use(cors());
 
+/*
+app.use(myconnection(postgres, {
+  user: 'postgres',
+  host: 'localhost',
+  database: 'covenant',
+  password: 'pacoygato',
+  port: 5432,  
+}));
+
+*/
 
 app.use(bodyParser.json())
 app.use(
@@ -27,12 +37,14 @@ app.use(
 
 app.use('/', tasksRoutes);
 
+/*
 const pool = new Pool({
     connectionString,
     ssl:{
       rejectUnauthorized:false
     }
   })
+  */
 
 
 const getUsuario = (request, response) => {

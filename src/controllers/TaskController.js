@@ -3,8 +3,8 @@ function home(req, res){
     res.render('../views/home.hbs')
 }
 
-function datos(req, res){
-    res.render('../views/layouts/datos.hbs');
+function propuestas(req, res){
+    res.render('../views/layouts/propuestas.hbs');
 }
 
 function chat(req, res){
@@ -15,9 +15,15 @@ function registro(req, res){
     res.render('../views/layouts/registro.hbs');
 }
 
+function crearPropuesta(req, res){
+    res.render('../views/layouts/crearPropuesta.hbs')
+}
+
 module.exports = {
     home: home,
-    datos: datos,
+    propuestas: propuestas,
     chat: chat,
-    registro:registro
+    registro:registro,
+    crearPropuesta:crearPropuesta
+
 }
