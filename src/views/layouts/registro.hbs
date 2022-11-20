@@ -1,35 +1,66 @@
 
-<div style="
-width:90%;
-height:auto;
-padding:5px;
-filter:alpha(opacity=70);
-background: transparent;
-" class="formularioRegistro">
-    <form action="" class="registro">
-      <h1 style="color:rgb(214, 106, 96)"
-      style="font-family:'Arial"
-      >Registrarse</h1>
+<div style="width:90%;height:auto;padding:5px;filter:alpha(opacity=70);background: transparent;" class="formularioRegistro">
+    <h1 style="color:#bd0f0fae" style="font-family:'Arial">Registrarse</h1>
+    <form method="post" action="https://retoolapi.dev/tsoxyc/dataPrueba">
+          <input required name="nombre" type="text" clas="input" placeholder="Nombre"><br>
+          <input required name="cedula" type="number" class="input" placeholder="Cedula"><br>
+          <input required name="correo" type="email" class="input" placeholder="Correo"><br>
+          <input required name="contra" type="password" class="input" placeholder="Contraseña"><br>
+          
+          <select name="sector" id="sector" required>
+              <option value="" disabled selected hidden>Sector</option>
+              <option value="1">Agropecuario</option>
+              <option value="2">Comercio exterior</option>
+              <option value="3">Comercio y servicios</option>
+              <option value="4">Construccion</option>
+              <option value="5">Precios</option>
+              <option value="6">Economia</option>
+              <option value="7">Educacion</option>
+              <option value="8">Tecnologias de informacion</option>
+              <option value="9">Industria</option>
+              <option value="10">Indicadores de competividad</option>
+          </select>
+          <br>
 
+          <select name="dpto" id="dpto" required>
+              <option value="" disabled selected hidden>Departamento</option>
+              <option value="1">Amazonas</option>
+              <option value="2">Antioquia</option>
+              <option value="3">Arauca</option>
+              <option value="4">Atlantico</option>
+              <option value="5">Bogota</option>
+              <option value="6">Bolivar</option>
+              <option value="7">Boyaca</option>
+              <option value="8">Caldas</option>
+              <option value="9">Caqueta</option>
+              <option value="10">Casanare</option>
+              <option value="11">Cauca</option>
+              <option value="12">Cesar</option>
+              <option value="13">Choco</option>
+              <option value="14">Cordoba</option>
+              <option value="15">Cundinamarca</option>
+              <option value="16">Guainia</option>
+              <option value="17">Guaviare</option>
+              <option value="18">Huila</option>
+              <option value="19">La Guajira</option>
+              <option value="20">Magdalena</option>
+              <option value="21">Meta</option>
+              <option value="22">Nariño</option>
+              <option value="23">Norte de Santander</option>
+              <option value="24">Putumayo</option>
+              <option value="25">Quindio</option>
+              <option value="26">Risaralda</option>
+              <option value="27">San Andres y Providencia</option>
+              <option value="28">Santander</option>
+              <option value="29">Sucre</option>
+              <option value="30">Tolima</option>
+              <option value="31">Valle del Cauca</option>
+              <option value="32">Vaupes</option>
+              <option value="33">Vichada</option>
+          </select>
+          <br>
 
-      <div class="inputContainer">
-      
-        <div style="border:rgb(216, 219, 231)" class="inputContainer">
-          <input type="text" clas="input" placeholder="Nombre">
-        </div>
-
-        <div style="border:rgb(216, 219, 231)" class="inputContainer">
-          <input type="text" class="input" placeholder="Cedula">
-        </div>
-
-        <div class="inputContainer">
-          <input type="text" class="input" placeholder="Correo">
-        </div>
-
-        <div style="border:rgb(216, 219, 231)"  class="inputContainer">
-          <input type="text" class="input" placeholder="Contraseña">
-        </div>
-
-        <input style="font-family:'Arial" style="border:rgb(216, 219, 231)" type="submit" class="submitBtn" value="Registrarse">
-      </form>
-    </div>
+          
+        <button style="font-family:'Arial" style="border:rgb(216, 219, 231)" type="submit" class="submitBtn" value="btnRegistrar">Registrarse</button>
+    </form>
+</div>
