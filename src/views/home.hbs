@@ -1,8 +1,22 @@
-<script type="text/javascript">
-  window.onload = function() {
-    Formio.createForm(document.getElementById('formLogin'), 'https://gfwocygaraggwqm.form.io/covenantlogin');
-  };
-</script>
+  <header>
+
+      <section class="wrapper">
+
+        <a title="Departamento Nacional de Planeación" 
+            href="https://www.dnp.gov.co/" 
+            target="_blank">
+            <img height="90" 
+                  src="https://www.sucop.gov.co/sitecollectionimages/sucop/sucop/DNP%20CON%20GOBIERNO%20DE%20COLOMBIA.png"
+                   alt="departamentoNP">
+        </a>
+      </section>
+    </header>
+
+    <br><br><br>
+     <div style="width: 100%; background-color: #bd0f0fae; height: 20px;"></div>
+
+
+
     <div id="cambio">
       <div style="color: black; margin-left: 1%; width: 98%;">  
 
@@ -41,16 +55,17 @@
                   <!--<div id="formLogin"></div> para cuando ya esté para despliegue en heroku-->
                   <div id="box">
     
-                        <form method="post">
-                            <div style="font-size: 20px;margin: 10px;color: white;">Login</div>
+                        <form method="post" action="/login">
+                            <div style="font-size: 20px;margin: 10px;color: white;">Ingresar al Sistema</div>
 
-                            <input id="text" type="text" name="user_name"><br><br>
-                            <input id="text" type="password" name="password"><br><br>
+                            <input required name="correo" type="email" class="input" placeholder="Correo"><br>
+                            <input required name="contra" type="password" class="input" placeholder="Contraseña"><br>
 
-                            <input id="button" type="submit" value="Login"><br><br>
+                            <button style="font-family:'Arial" style="border:rgb(216, 219, 231)" type="submit" class="submitBtn" value="btnLogin">Iniciar Sesión</button>
           
-                           <a class="boton" href="/registro">Registrarse</a>
+                        
                         </form>
+                        <a class="boton" href="/registro">Registrarse</a>
                   </div>
                 </div>
   
@@ -80,7 +95,7 @@
           Desarrollado por el equipo de
               Ingeniería en la Pontificia Universidad Javeriana. 
         </main>
-        <div id="formio"></div>
+        
         <br><br>
   
         </div>
@@ -89,19 +104,3 @@
 
 
     </div>
-
-    
-
- <!--   
-
-  <div id="cambio">
-
-    <div id="seccionChat">
-      <br><br><br>
-      <iframe class="ifChat" src="/chat" frameborder="0"></iframe>
-    </div>
-
-
-  </div>
-
-  -->

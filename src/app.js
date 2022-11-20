@@ -59,24 +59,28 @@ const crearUsuario = (request, response) => {
 }
 //////////////////////////////////////////////////////////////////////////////////
 const iniciarSesion = (request, response) => {
-  const email = request.body.data.email
-  const password = request.body.data.password
+  const { correo,contra } = request.body
+
       
-  pool.query('SELECT correo, contraseña FROM usuario where correo = $1 and contraseña = $2', [email, password], (error, results) => {
+  pool.query('SELECT correo, contraseña FROM usuario where correo = $1 and contraseña = $2', [correo, contra], (error, results) => {
     if (error) {
       throw error//error
     }
     if(results.rowCount==1){
       //response.render('datos')
       //response.status(200).json(results.rows)//login exitoso
-      response.render('home');
+      //response.render('datos');
+      console.log("ENTRA")
+      
+      response.render('layouts/datos')
     }else{
-      response.status(200).json(results.rows)//campos incorrectos
+      response.render('home')//campos incorrectos
     }
   })
 }
 
-const path = require('path')
+const path = require('path');
+const router = require("./routes/tasks.js");
 
 app.get('/test', function (req, res) {
   res.json({ Resultado: 'Proyecto COVENANT' })
