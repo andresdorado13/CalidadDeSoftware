@@ -6,13 +6,34 @@ const bodyParser = require('body-parser')
 const Pool = require('pg').Pool
 const connectionString = process.env.DATABASE_URL
 const tasksRoutes = require('./routes/tasks.js');
+const flash=require('connect-flash');
+const session = require('express-session');
+const toastr = require('express-toastr');
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+
+app.use(session({
+  secret: 'restaurat-session',
+  resave: false,
+  saveUninitialized: false,
+}));
+
+app.use(flash());
+app.use(toastr());
+
+global.document = new JSDOM('home').window.document;
 
 
 app.set('views', __dirname + '/views')
 app.engine('.hbs',engine({
-  extname: '.hbs'
+  extname: '.hbs',
 }));
 app.set('view engine', 'hbs');
+
+app.use((req,res,next)=>{
+  res.locals.toastr = req.toastr.render()
+  next();
+})
 
 let cors = require("cors");
 app.use(cors());
@@ -34,6 +55,9 @@ const pool = new Pool({
     }
   })
 //////////////////////////////////////////////////////////////////////////////////////
+const path = require('path');
+const router = require("./routes/tasks.js");
+/////////////////////////////////////////////////////////////////////////////////////
 
 const getUsuario = (request, response) => {
   pool.query('SELECT * FROM usuario ORDER BY id ASC', (error, results) => {
@@ -54,44 +78,64 @@ const crearUsuario = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(201).json({ UsuarioAgregado: 'Ok' })
+    console.log("UsuarioAgregado: 'Ok' ")
+    response.render('home')
   })
 }
+///////////////////////////////////////////////////////////////////////////////////
+var actual=0;
 //////////////////////////////////////////////////////////////////////////////////
 const iniciarSesion = (request, response) => {
   const { correo,contra } = request.body
-
-      
-  pool.query('SELECT correo, contraseña FROM usuario where correo = $1 and contraseña = $2', [correo, contra], (error, results) => {
+  pool.query('SELECT id, correo, contraseña FROM usuario where correo = $1 and contraseña = $2', [correo, contra], (error, results) => {
     if (error) {
       throw error//error
     }
     if(results.rowCount==1){
-      //response.render('datos')
-      //response.status(200).json(results.rows)//login exitoso
-      //response.render('datos');
-      console.log("ENTRA")
-      
+      console.log("Ingresa: "+results.rows[0].id)
+      actual=results.rows[0].id;
+      //      
       response.render('layouts/datos')
-    }else{
+    }else{  
       response.render('home')//campos incorrectos
+      //response.render('home',{title:'Ingreso', records:DataTransfer,warning:'Usuario Ingresado Exitosamente' })
+      //request.toastr.error('A ocurrido un error al Ingresar', '¡ERROR!');
     }
   })
 }
-
-const path = require('path');
-const router = require("./routes/tasks.js");
 
 app.get('/test', function (req, res) {
   res.json({ Resultado: 'Proyecto COVENANT' })
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.get('/', function (req, res) {
   res.render('home');
-  //res.sendFile(path.resolve(__dirname,'index.html'))
-  //res.sendFile(path.resolve(__dirname,'estilos/body.css'))
-  //res.json({ Resultado: 'Taller Despliegue con ' })
 });
+
 
 app.get('/usuarios', getUsuario)
 app.post('/registro', crearUsuario)
