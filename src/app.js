@@ -12,6 +12,10 @@ const toastr = require('express-toastr');
 const jsdom = require("jsdom");
 const {execSync} = require('child_process');
 const { JSDOM } = jsdom;
+const uplo=require('./helpers/uploadFile.js');
+const PropuestaController = require('./controllers/PropuestaController');
+
+
 
 app.use(session({
   secret: 'restaurat-session',
@@ -89,6 +93,13 @@ const iniciarSesion = (request, response) => {
     if(results.rowCount==1){
       console.log("Ingresa: "+results.rows[0].id)
       actual=results.rows[0].id;
+
+      ///LOGEAR EN PAGINAS
+      uplo.loggear(actual);
+      PropuestaController.loggear(actual);
+      ///
+
+
       request.toastr.success('Sesión Iniciada');
       response.redirect('/datos');          
     }else{ 
@@ -101,27 +112,6 @@ const iniciarSesion = (request, response) => {
 app.get('/test', function (req, res) {
   res.json({ Resultado: 'Proyecto COVENANT' })
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

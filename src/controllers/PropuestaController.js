@@ -2,8 +2,15 @@ const Propuesta = require('../models/Propuesta');
 
 const PropuestaController = {};
 
+var resultado;
+
+PropuestaController.loggear = (x) => {
+    resultado=x;
+}
+
 PropuestaController.index = async (req, res) => {
-    const propuestas = await Propuesta.get();
+    const propuestas = Propuesta.get();
+    console.log(propuestas);
     res.render('layouts/datos', {propuestas});
 }
 
@@ -14,18 +21,20 @@ PropuestaController.create = async (req, res) => {
 PropuestaController.store = async (req, res) => {
     const data = {
         nombre: req.body.nombre,
-        precio: req.body.precio,
-        arch: req.file.filename,
+        fecha:'27-11-2002',
+        votos: 0,
+        userid: resultado,
         descripcion: req.body.descripcion
     };
     try {
         await Propuesta.create(data);
         req.toastr.success('La propuesta a sido registrado exitosamente');
-        res.redirect('/datos');
+        //res.redirect('/datos');
     } catch (e) {
         req.toastr.error('Ha ocurrido un error al registrar la propuesta', '¡ERROR!');
         console.error(e);
     }
+    res.redirect('/get-propuestas');
 }
 
 PropuestaController.edit = async (req, res) => {
