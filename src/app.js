@@ -10,6 +10,7 @@ const flash=require('connect-flash');
 const session = require('express-session');
 const toastr = require('express-toastr');
 const jsdom = require("jsdom");
+const {execSync} = require('child_process');
 const { JSDOM } = jsdom;
 
 app.use(session({
@@ -54,10 +55,6 @@ const pool = new Pool({
       rejectUnauthorized:false
     }
   })
-//////////////////////////////////////////////////////////////////////////////////////
-const path = require('path');
-const router = require("./routes/tasks.js");
-/////////////////////////////////////////////////////////////////////////////////////
 
 const getUsuario = (request, response) => {
   pool.query('SELECT * FROM usuario ORDER BY id ASC', (error, results) => {
@@ -67,24 +64,22 @@ const getUsuario = (request, response) => {
     response.status(200).json(results.rows)
   })
 }
-//////////////////////////////////////////////////////////////////////////////////////
+
 /**REGISTRO */
 const crearUsuario = (request, response) => {
   const { nombre,cedula,correo,contra,dpto,sector } = request.body
   console.log(request.body)
   const rol=1  
-  //CAMBIARLO PARA LA TABLA usuario
   pool.query('insert into usuario (nombre,cedula,correo,contraseña,tiposectorid,tiporolid,tipodepartamentoid) values ($1, $2, $3, $4, $5, $6, $7)', [nombre,cedula,correo,contra,sector,rol,dpto], (error, results) => {
     if (error) {
       throw error
     }
+    request.toastr.success('La propuesta a sido registrado exitosamente');
     console.log("UsuarioAgregado: 'Ok' ")
     response.render('home')
   })
 }
-///////////////////////////////////////////////////////////////////////////////////
 var actual=0;
-//////////////////////////////////////////////////////////////////////////////////
 const iniciarSesion = (request, response) => {
   const { correo,contra } = request.body
   pool.query('SELECT id, correo, contraseña FROM usuario where correo = $1 and contraseña = $2', [correo, contra], (error, results) => {
@@ -94,12 +89,11 @@ const iniciarSesion = (request, response) => {
     if(results.rowCount==1){
       console.log("Ingresa: "+results.rows[0].id)
       actual=results.rows[0].id;
-      //      
-      response.render('layouts/datos')
-    }else{  
-      response.render('home')//campos incorrectos
-      //response.render('home',{title:'Ingreso', records:DataTransfer,warning:'Usuario Ingresado Exitosamente' })
-      //request.toastr.error('A ocurrido un error al Ingresar', '¡ERROR!');
+      request.toastr.success('Sesión Iniciada');
+      response.redirect('/datos');          
+    }else{ 
+      request.toastr.error('Campos Incorrectos', '¡ERROR!');
+      response.redirect('home');//campos incorrectos
     }
   })
 }
