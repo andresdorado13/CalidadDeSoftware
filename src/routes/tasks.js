@@ -9,6 +9,7 @@ router.get('/home', TaskController.home);
 router.get('/datos', TaskController.datos);
 router.get('/chat', TaskController.chat);
 router.get('/registro', TaskController.registro);
+router.get('/correo', TaskController.correo);
 
 router.post('/store-propuesta', [upload('arch')], PropuestaController.store);
 

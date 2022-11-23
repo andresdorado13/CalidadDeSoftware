@@ -16,7 +16,8 @@ Propuesta.get = async () => {
         if (error) {
           throw error
         }
-        return results.rows;
+        //console.log(results.rows)
+        return results;
       })
 };
 
@@ -25,24 +26,25 @@ Propuesta.find = async (id) => {
 };
 
 Propuesta.create = async (data) => {
-
-    const { nombre,fecha,votos,userid,descripcion } = data
-    console.log(nombre)  
-    
     try{
-        fs.writeFileSync(userid+'.txt', descripcion);
-    }catch (e){
-        console.log("Cannot write file ", e);
-    }
-    console.log('creadoTXT')
-    try{
-    pool.query('insert into propuesta (titulo,fechapublicacion,votos,usuarioid) values ($1, $2, $3, $4)', [nombre,fecha,votos,userid], (error, results) => {
-        if (error) {
-        throw error
+        const { nombre,fecha,votos,userid,descripcion } = data
+        console.log(nombre)  
+        
+        try{
+            fs.writeFileSync(userid+'.txt', descripcion);
+        }catch (e){
+            console.log("Cannot write file ", e);
         }
-        console.log("Propuesta Agregada: 'Ok' ")
-    })
-    }catch(e){}
+        console.log('creadoTXT')
+        try{
+        pool.query('insert into propuesta (titulo,fechapublicacion,votos,usuarioid) values ($1, $2, $3, $4)', [nombre,fecha,votos,userid], (error, results) => {
+            if (error) {
+            throw error
+            }
+            console.log("Propuesta Agregada: 'Ok' ")
+        })
+        }catch(e){}
+    }catch(e){}    
 };
 
 Propuesta.update = async (id, data) => {

@@ -14,7 +14,7 @@
           <ul>
             <li><a href="/home">Cerrar Sesion</a></li>
             <li><a href="/datos">Propuestas</a></li>
-            <li><a href="/trayer">Enviar Correo</a></li>
+            <li><a href="/correo">Enviar Correo</a></li>
             <li><a href="/chat">Foro</a></li>
           </ul>
         </nav>
@@ -32,27 +32,18 @@
             <p>Usted tiene acceso a la información de propuestas de su departamento</p> 
         </div>
 
-
-
-
-
-
-
     <h3 class="mt-3">Lista de Propuestas</h3>
 {{#each propuestas}}
-    <div class="card my-3">
+    <div class="card my-3" style="width: 50%; margin-left:25%;background-color: rgba(204, 189, 189, 0.829);">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
-                    <img class="img-thumbnail" src="/img/propuestas/{{this.foto}}" alt="">
-                </div>
                 <div class="col-md-8">
                     <p><b>Título: </b> {{ this.titulo }}</p>
-                    <p><b>Descripción: </b> {{ this.descripcion }}</p>
+                    <p><b>Votos: </b> {{ this.votos }}</p>
                 </div>
             </div>
             <div class="text-end">
-                <a class="btn btn-sm btn-outline-success" href="/edit-propuestas/{{this.id}}">Editar</a>
+                <a class="btn btn-sm btn-outline-success" href="/edit-propuestas/{{this.id}}">Votar</a>
                 <a class="btn btn-sm btn-outline-danger"
                    onclick="return confirm('¿Está seguro que desea eliminar?')"
                    href="/delete-plato/{{this.id}}">Eliminar</a>
@@ -60,16 +51,6 @@
         </div>
     </div>
 {{/each}}
-
-
-
-
-
-
-
-
-
-
     
     <main>
       <div class="row mt-4">
