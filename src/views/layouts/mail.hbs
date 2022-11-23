@@ -1,0 +1,79 @@
+<header>
+
+      <section class="wrapper">
+
+        <a title="Departamento Nacional de Planeación" 
+            href="https://www.dnp.gov.co/" 
+            target="_blank">
+            <img height="90" 
+                  src="https://www.sucop.gov.co/sitecollectionimages/sucop/sucop/DNP%20CON%20GOBIERNO%20DE%20COLOMBIA.png"
+                   alt="departamentoNP">
+        </a>
+
+        <nav class="navp">
+          <ul>
+            <li><a href="/home">Cerrar Sesion</a></li>
+            <li><a href="/datos">Propuestas</a></li>
+            <li><a href="/correo">Enviar Correo</a></li>
+            <li><a href="/chat">Foro</a></li>
+          </ul>
+        </nav>
+      </section>
+    </header>
+
+    <br><br><br>
+     <div style="width: 100%; background-color: #bd0f0fae; height: 20px;"></div>
+    
+
+    
+
+    <main>
+      <div class="row mt-4">
+    <div class="col-md-6 offset-md-3">
+        <div class="card" style="background-color: rgba(238, 221, 221, 0.856);">
+            <div class="card-header">
+                <h3>Enviar Correo</h3>
+            </div>
+            <div class="card-body">
+                <form action="/sendMail" method="post" enctype="multipart/form-data">
+                    <div class="my-3">
+                        <label for="asunto">Asunto</label>
+                        <input required class="form-control" id="asunto" name="asunto" type="text" placeholder="Título">
+                    </div>
+
+                    <select name="sector" id="sector" required>
+                      <option value="" disabled selected hidden>Segmento</option>
+                      <option value="1">Agropecuario</option>
+                      <option value="2">Comercio exterior</option>
+                      <option value="3">Comercio y servicios</option>
+                      <option value="4">Construccion</option>
+                      <option value="5">Precios</option>
+                      <option value="6">Economia</option>
+                      <option value="7">Educacion</option>
+                      <option value="8">Tecnologias de informacion</option>
+                      <option value="9">Industria</option>
+                      <option value="10">Indicadores de competividad</option>
+                    </select>
+
+                    <div class="my-3">
+                        <label for="arch">PDF</label>
+                        <input required class="form-control" id="arch" name="arch" type="file">
+                    </div>
+
+                    <div class="my-3">
+                        <label for="descripcion">Mensaje</label>
+                        <textarea required name="descripcion" id="descripcion" class="form-control" cols="30" rows="10"></textarea>
+                    </div>
+
+                    <div class="text-end">
+                        <input class="btn btn-primary" type=submit value="Enviar a Segmento">
+                        <input class="btn btn-primary" type=submit value="Enviar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+        
+    </main>  
+  

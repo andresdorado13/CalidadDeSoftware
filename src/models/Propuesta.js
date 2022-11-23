@@ -1,7 +1,24 @@
+const Pool = require('pg').Pool
+require('dotenv').config()
+const connectionString = process.env.DATABASE_URL
+const fs = require('fs');
+
+const pool = new Pool({
+    connectionString,
+    ssl:{
+      rejectUnauthorized:false
+    }
+  })
 const Propuesta = {};
 
 Propuesta.get = async () => {
-    return await db.query('select * from propuesta');
+    pool.query('SELECT * FROM propuesta', (error, results) => {
+        if (error) {
+          throw error
+        }
+        //console.log(results.rows)
+        return results;
+      })
 };
 
 Propuesta.find = async (id) => {
@@ -9,18 +26,25 @@ Propuesta.find = async (id) => {
 };
 
 Propuesta.create = async (data) => {
-
-    console.log("HAHHAHA");
-    try {
-        const insertar = await db.query(`insert into platos set ?`, [data]);
-        if (insertar === 'error') {
-            console.error('ERROR');
-        } else {
-            return insertar;
+    try{
+        const { nombre,fecha,votos,userid,descripcion } = data
+        console.log(nombre)  
+        
+        try{
+            fs.writeFileSync(userid+'.txt', descripcion);
+        }catch (e){
+            console.log("Cannot write file ", e);
         }
-    } catch (e) {
-        console.error(e);
-        }
+        console.log('creadoTXT')
+        try{
+        pool.query('insert into propuesta (titulo,fechapublicacion,votos,usuarioid) values ($1, $2, $3, $4)', [nombre,fecha,votos,userid], (error, results) => {
+            if (error) {
+            throw error
+            }
+            console.log("Propuesta Agregada: 'Ok' ")
+        })
+        }catch(e){}
+    }catch(e){}    
 };
 
 Propuesta.update = async (id, data) => {

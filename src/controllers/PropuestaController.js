@@ -1,10 +1,35 @@
 const Propuesta = require('../models/Propuesta');
+const Pool = require('pg').Pool
+require('dotenv').config()
+const connectionString = process.env.DATABASE_URL
+const fs = require('fs');
+
+const pool = new Pool({
+    connectionString,
+    ssl:{
+      rejectUnauthorized:false
+    }
+  })
 
 const PropuestaController = {};
 
+var resultado;
+
+PropuestaController.loggear = (x) => {
+    resultado=x;
+}
+
 PropuestaController.index = async (req, res) => {
-    const propuestas = await Propuesta.get();
-    res.render('layouts/datos', {propuestas});
+    //const propuestas = Propuesta.get();
+    //console.log(propuestas);
+    pool.query('SELECT * FROM propuesta', (error, results) => {
+        if (error) {
+            throw error
+          }
+          console.log(results.rows)
+          const propuestas=results.rows;
+          res.render('layouts/datos', {propuestas});
+        })
 }
 
 PropuestaController.create = async (req, res) => {
@@ -14,18 +39,20 @@ PropuestaController.create = async (req, res) => {
 PropuestaController.store = async (req, res) => {
     const data = {
         nombre: req.body.nombre,
-        precio: req.body.precio,
-        arch: req.file.filename,
+        fecha:'27-11-2002',
+        votos: 0,
+        userid: resultado,
         descripcion: req.body.descripcion
     };
     try {
         await Propuesta.create(data);
         req.toastr.success('La propuesta a sido registrado exitosamente');
-        res.redirect('/datos');
+        //res.redirect('/datos');
     } catch (e) {
         req.toastr.error('Ha ocurrido un error al registrar la propuesta', '¡ERROR!');
         console.error(e);
     }
+    res.redirect('/get-propuestas');
 }
 
 PropuestaController.edit = async (req, res) => {
